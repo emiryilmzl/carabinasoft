@@ -1,32 +1,29 @@
-# React + TypeScript + Vite
+# CarabinaSoft
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+CarabinaSoft resmi web sitesi. Proje Vite + React + TypeScript ile hazırlanmıştır.
 
-Currently, two official plugins are available:
+## Geliştirme
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
-
-## React Compiler
-
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the Oxlint configuration
-
-If you are developing a production application, we recommend enabling type-aware lint rules by installing `oxlint-tsgolint` and editing `.oxlintrc.json`:
-
-```json
-{
-  "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["react", "typescript", "oxc"],
-  "options": {
-    "typeAware": true
-  },
-  "rules": {
-    "react/rules-of-hooks": "error",
-    "react/only-export-components": ["warn", { "allowConstantExport": true }]
-  }
-}
+```bash
+npm install
+npm run dev
 ```
 
-See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
+## Production Build
+
+```bash
+npm run build
+npm run preview
+```
+
+Build çıktısı `dist` klasörüne üretilir.
+
+## GitHub Pages Deploy
+
+- `main` branch canlı/prod branch olarak kullanılır.
+- `develop` branch geliştirme branch'i olarak kullanılır.
+- Yeni özellikler `feature/*` branch'lerinde geliştirilir ve önce `develop`, ardından yayın için `main` branch'ine alınır.
+- `main` branch'e push yapılınca GitHub Actions otomatik deploy eder.
+- Repository ayarlarında GitHub Pages source olarak `GitHub Actions` seçilmelidir.
+- GitHub Pages custom domain değeri `carabinasoft.com` olmalıdır.
+- DNS tarafında `carabinasoft.com` alan adı GitHub Pages'a yönlendirilmelidir.
