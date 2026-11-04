@@ -20,6 +20,7 @@ export const Navbar: FC = () => {
 
   const navLinks = [
     { name: 'Ana Sayfa', href: '#home' },
+    { name: 'AI Menu', href: '/ai-menu/' },
     { name: 'Hizmetler', href: '#services' },
     { name: 'B2B Çözümler', href: '#b2b' },
     { name: 'Sektörler', href: '#industries' },
@@ -29,8 +30,9 @@ export const Navbar: FC = () => {
   ];
 
   const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
-    e.preventDefault();
     setIsOpen(false);
+    if (!href.startsWith('#')) return;
+    e.preventDefault();
     const element = document.querySelector(href);
     if (element) {
       const offset = 80;
@@ -63,7 +65,7 @@ export const Navbar: FC = () => {
           </a>
 
           {/* Desktop Navigation Links */}
-          <div className="hidden lg:flex items-center space-x-8">
+          <div className="hidden xl:flex items-center space-x-5">
             {navLinks.map((link) => (
               <a
                 key={link.name}
@@ -77,7 +79,7 @@ export const Navbar: FC = () => {
           </div>
 
           {/* Desktop CTA Button */}
-          <div className="hidden lg:block">
+          <div className="hidden xl:block">
             <a
               href="#contact"
               onClick={(e) => handleLinkClick(e, '#contact')}
@@ -89,13 +91,13 @@ export const Navbar: FC = () => {
           </div>
 
           {/* Mobile menu button */}
-          <div className="flex lg:hidden">
+          <div className="flex xl:hidden">
             <button
               onClick={() => setIsOpen(!isOpen)}
               type="button"
               className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-white/5 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-brand transition-colors duration-200"
               aria-controls="mobile-menu"
-              aria-expanded="false"
+              aria-expanded={isOpen}
             >
               <span className="sr-only">Menüyü aç</span>
               {isOpen ? <X className="block h-6 w-6" /> : <Menu className="block h-6 w-6" />}
@@ -106,12 +108,13 @@ export const Navbar: FC = () => {
 
       {/* Mobile menu */}
       <div
-        className={`lg:hidden transition-all duration-350 ease-in-out ${
+        className={`xl:hidden transition-all duration-350 ease-in-out ${
           isOpen
             ? 'max-h-screen opacity-100 border-b border-white/5 bg-dark-950/95 backdrop-blur-lg'
             : 'max-h-0 opacity-0 overflow-hidden pointer-events-none'
         }`}
         id="mobile-menu"
+        aria-hidden={!isOpen}
       >
         <div className="px-4 pt-4 pb-6 space-y-3">
           {navLinks.map((link) => (
