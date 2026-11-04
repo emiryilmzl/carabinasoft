@@ -14,11 +14,10 @@ export const Contact: React.FC = () => {
   });
 
   const [isSubmitted, setIsSubmitted] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
+  const [preparedWhatsAppUrl, setPreparedWhatsAppUrl] = useState('');
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setIsLoading(true);
 
     const whatsappNumber = "905444766048";
     const text = `*Yeni İş Talebi (Carabina Software)*\n\n` +
@@ -31,21 +30,9 @@ export const Contact: React.FC = () => {
     const encodedText = encodeURIComponent(text);
     const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodedText}`;
 
-    // Open WhatsApp link in new tab
-    window.open(whatsappUrl, '_blank');
-
-    setTimeout(() => {
-      setIsLoading(false);
-      setIsSubmitted(true);
-      setFormData({
-        name: '',
-        company: '',
-        phone: '',
-        email: '',
-        needType: 'Web Sitesi',
-        message: '',
-      });
-    }, 1000);
+    setPreparedWhatsAppUrl(whatsappUrl);
+    setIsSubmitted(true);
+    window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
@@ -99,8 +86,8 @@ export const Contact: React.FC = () => {
                   <Clock className="w-5 h-5" />
                 </div>
                 <div>
-                  <span className="text-[10px] text-gray-500 block uppercase font-medium">ORTALAMA YANIT</span>
-                  <span className="text-white text-sm font-semibold">15 Dakika İçinde Dönüş</span>
+                  <span className="text-[10px] text-gray-500 block uppercase font-medium">DEMO VE PROJE GÖRÜŞMESİ</span>
+                  <span className="text-white text-sm font-semibold">İşletmenize uygun kapsamı birlikte belirleyelim</span>
                 </div>
               </div>
             </div>
@@ -144,16 +131,17 @@ export const Contact: React.FC = () => {
                     <CheckCircle className="w-10 h-10" />
                   </div>
                   <div className="space-y-2.5">
-                    <h3 className="text-2xl font-bold text-white font-sans">Talebiniz Alındı!</h3>
+                    <h3 className="text-2xl font-bold text-white font-sans">WhatsApp’ta gönderimi tamamlayın</h3>
                     <p className="text-gray-400 text-sm max-w-md mx-auto leading-relaxed">
-                      Talebiniz alındı. En kısa sürede sizinle iletişime geçeceğiz. İş birliğiniz için teşekkür ederiz.
+                      Talebinizin bize ulaşması için WhatsApp ekranında mesajı gönderin. WhatsApp açılmadıysa aşağıdaki bağlantıyı kullanabilirsiniz.
                     </p>
                   </div>
+                  <a href={preparedWhatsAppUrl} target="_blank" rel="noopener noreferrer" className="inline-flex rounded-lg bg-emerald-500 px-5 py-3 text-sm font-bold text-white">WhatsApp mesajını aç</a>
                   <button
                     onClick={() => setIsSubmitted(false)}
                     className="text-xs text-brand font-bold uppercase tracking-wider bg-brand/10 border border-brand/20 px-5 py-2.5 rounded-lg hover:bg-brand/20 transition-colors"
                   >
-                    Yeni Talep Gönder
+                    Bilgileri düzenle
                   </button>
                 </div>
               ) : (
@@ -250,6 +238,7 @@ export const Contact: React.FC = () => {
                         className="w-full bg-[#050505] border border-white/5 rounded-xl px-4 py-3.5 text-white focus:outline-none focus:border-brand/60 focus:ring-1 focus:ring-brand/40 text-sm appearance-none transition-all duration-300 cursor-pointer"
                       >
                         <option value="Web Sitesi">Web Sitesi</option>
+                        <option value="AI Menu / QR Menü">AI Menu / QR Menü</option>
                         <option value="E-Ticaret">E-Ticaret</option>
                         <option value="B2B Bayi Sistemi">B2B Bayi Sistemi</option>
                         <option value="CRM / Otomasyon">CRM / Otomasyon</option>
@@ -283,20 +272,9 @@ export const Contact: React.FC = () => {
                   {/* Submit Button */}
                   <button
                     type="submit"
-                    disabled={isLoading}
                     className="w-full inline-flex items-center justify-center px-6 py-4 rounded-xl bg-brand text-white font-bold text-sm tracking-wide uppercase shadow-lg shadow-brand/20 hover:shadow-brand/45 active:translate-y-0.5 hover:-translate-y-0.5 disabled:bg-brand/50 disabled:cursor-not-allowed transition-all duration-350"
                   >
-                    {isLoading ? (
-                      <span className="flex items-center space-x-2">
-                        <span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                        <span>Gönderiliyor...</span>
-                      </span>
-                    ) : (
-                      <span className="flex items-center space-x-2">
-                        <span>Talebi Gönder</span>
-                        <Send className="w-4 h-4" />
-                      </span>
-                    )}
+                    <span className="flex items-center space-x-2"><span>WhatsApp’ta devam et</span><Send className="w-4 h-4" /></span>
                   </button>
 
                 </form>

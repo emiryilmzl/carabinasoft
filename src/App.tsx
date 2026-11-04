@@ -1,6 +1,7 @@
 import { AnimatedBackground } from './components/AnimatedBackground';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
+import { AIMenu } from './components/AIMenu';
 import { Services } from './components/Services';
 import { B2BSolutions } from './components/B2BSolutions';
 import { Industries } from './components/Industries';
@@ -22,6 +23,7 @@ function App() {
       <main className="relative z-10 w-full overflow-x-hidden">
         {/* Hero Landing Area */}
         <Hero />
+        <AIMenu />
 
         {/* Core Services Section */}
         <Services />
